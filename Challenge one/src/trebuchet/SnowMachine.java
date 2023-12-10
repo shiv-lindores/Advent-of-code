@@ -24,7 +24,11 @@ public class SnowMachine {
 			int sum = 0;
 			
 			while (line!=null) {
+				System.out.println(line);
+				int calibrationValue = getCalibrationValue(line);
+				System.out.println(calibrationValue);
 				sum += getCalibrationValue(line);
+				System.out.println(sum);
 				line = bw.readLine();
 			}
 			
@@ -42,6 +46,21 @@ public class SnowMachine {
 	}
 	
 	private static int getCalibrationValue(String line) {
+		
+		String [] numbers = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+		
+		//looping through each number in the array
+		for (int i =0; i < numbers.length; i ++) {
+			//checking if current line has the current number in the array
+			if (line.contains(numbers[i])) {
+				//if number is found replace all occurrences of the word in the line
+				//with corresponding numeric value as a string
+				line = line.replaceAll(numbers[i], Integer.toString(i));
+			}
+		}
+		
+		//iterating through the line to check for the first and last digits 
+		
 		char firstDigit = '\0';
 		char lastDigit = '\0';
 		
@@ -57,6 +76,7 @@ public class SnowMachine {
 		if (firstDigit != '\0' && lastDigit != '\0') {
 			return Integer.parseInt("" + firstDigit + lastDigit);
 		}
+		
 		return 0;
 		
 	}
